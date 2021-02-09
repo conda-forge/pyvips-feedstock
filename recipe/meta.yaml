@@ -23,7 +23,7 @@ source:
 
 build:
   number: 0
-  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
+  script: '{{ PYTHON }} -m pip install . -vv '
   skip: true  # [win]
 
 requirements:
@@ -39,7 +39,6 @@ requirements:
     - python
   run:
     - cffi >=1.0
-    - libvips
     - python
 
 test:
