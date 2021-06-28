@@ -11,19 +11,19 @@
 # at least gdk-pixbuf.
 
 {% set name = "pyvips" %}
-{% set version = "2.1.8" %}
+{% set version = "2.1.15" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
   url: https://github.com/libvips/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 4dcd1d6689f3faf46b340e70ee238bfd323b9757c5aff8d22a9e05201ebf2cc3
+  sha256: a3fedfc77a63c38f67fae8497f5f6dc70e3095f496c4fbba02e778faa4ab3a71
 
 build:
-  number: 1
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  number: 0
+  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
 requirements:
