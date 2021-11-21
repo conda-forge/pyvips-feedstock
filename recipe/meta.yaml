@@ -34,7 +34,7 @@ requirements:
     - {{ compiler('c') }}
   host:
     - cffi >=1.0
-    - libvips
+    - libvips >=8.12
     - pip
     - pkgconfig         # [not win]
     - pytest
@@ -42,7 +42,6 @@ requirements:
     - python
   run:
     - cffi >=1.0
-    - libvips
     - python
 
 test:
