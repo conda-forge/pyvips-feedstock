@@ -34,7 +34,7 @@ requirements:
     - {{ compiler('c') }}
   host:
     - cffi >=1.0
-    - libvips >=8.12
+    - libvips
     - pip
     - pkgconfig         # [not win]
     - pytest
