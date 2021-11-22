@@ -22,7 +22,7 @@ source:
   sha256: 24f71106de2000153ca3654f5815c620c239bc6e980b72484ae5e121ecbe4f5a
 
 build:
-  number: 1
+  number: 2
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
@@ -34,7 +34,7 @@ requirements:
     - {{ compiler('c') }}
   host:
     - cffi >=1.0
-    - libvips >=8.12
+    - libvips
     - pip
     - pkgconfig         # [not win]
     - pytest
