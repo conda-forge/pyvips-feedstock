@@ -34,7 +34,7 @@ requirements:
     - {{ compiler('c') }}
   host:
     - cffi >=1.0
-    - libvips 8.11
+    - libvips 8.10
     - pip
     - pkgconfig         # [not win]
     - pytest
@@ -45,8 +45,10 @@ requirements:
     - python
 
 test:
-  imports:
-    - pyvips
+  # imports:
+  #   - pyvips
+  commands:
+    - python -c "import logging;logging.basicConfig(level=logging.DEBUG);import pyvips"
 
 about:
   home: https://github.com/libvips/pyvips
