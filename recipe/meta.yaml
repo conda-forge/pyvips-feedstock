@@ -22,16 +22,17 @@ source:
   sha256: 24f71106de2000153ca3654f5815c620c239bc6e980b72484ae5e121ecbe4f5a
 
 build:
-  number: 1
+  number: 2
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cffi                                   # [build_platform != target_platform]
-    - {{ compiler('c') }}
+    - pkgconfig                              # [build_platform != target_platform]
   host:
     - cffi >=1.0
     - libvips >=8.12
