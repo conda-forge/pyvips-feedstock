@@ -20,9 +20,12 @@ package:
 source:
   url: https://github.com/libvips/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: 24f71106de2000153ca3654f5815c620c239bc6e980b72484ae5e121ecbe4f5a
+  patches:
+    # https://github.com/libvips/pyvips/issues/295
+    - remove_pkgconfig_runtime_dependency.patch
 
 build:
-  number: 3
+  number: 4
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
@@ -50,7 +53,7 @@ requirements:
     - python
     # 2021/12/30 Not sure why pkgconfig is a runtime dependency
     # https://github.com/libvips/pyvips/issues/295
-    - pkgconfig         # [not win]
+    # - pkgconfig         # [not win]
 
 test:
   requires:

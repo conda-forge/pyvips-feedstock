@@ -1,0 +1,14 @@
+diff --git a/setup.py b/setup.py
+index 787dc16..86728b7 100644
+--- a/setup.py
++++ b/setup.py
+@@ -82,7 +82,7 @@ def setup_API():
+         packages=pyvips_packages,
+         setup_requires=setup_deps + ['pkgconfig'],
+         cffi_modules=['pyvips/pyvips_build.py:ffibuilder'],
+-        install_requires=install_deps + ['pkgconfig'],
++        install_requires=install_deps,
+         tests_require=test_deps,
+         extras_require=extras,
+ 
+
