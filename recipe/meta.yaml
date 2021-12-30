@@ -7,7 +7,7 @@
 # fails, will fall back to ABI mode, ie. directly opening the libvips shared
 # library and calling into it with cffi.
 
-# Skip win since libvips is not packaged for conda there. It is blocked on 
+# Skip win since libvips is not packaged for conda there. It is blocked on
 # at least gdk-pixbuf.
 
 {% set name = "pyvips" %}
@@ -22,7 +22,7 @@ source:
   sha256: 24f71106de2000153ca3654f5815c620c239bc6e980b72484ae5e121ecbe4f5a
 
 build:
-  number: 2
+  number: 3
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
@@ -31,8 +31,12 @@ requirements:
     - {{ compiler('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cffi                                   # [build_platform != target_platform]
-    - pkgconfig                              # [build_platform != target_platform]
+    # 2021/12/30 hmaarrfk
+    # I'm really not sure how to ensure that things get cross compiled correctly
+    # Therefore, we rely on ABI mode for cross compiled architectures
+    # - cffi                                   # [build_platform != target_platform]
+    # - pkgconfig                              # [build_platform != target_platform]
+    # - libvips                                # [build_platform != target_platform]
   host:
     - cffi >=1.0
     - libvips
@@ -44,10 +48,17 @@ requirements:
   run:
     - cffi >=1.0
     - python
+    # 2021/12/30 Not sure why pkgconfig is a runtime dependency
+    # https://github.com/libvips/pyvips/issues/295
+    - pkgconfig         # [not win]
 
 test:
+  requires:
+    - pip
   imports:
     - pyvips
+  commands:
+    - pip check
 
 about:
   home: https://github.com/libvips/pyvips
