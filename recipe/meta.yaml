@@ -22,14 +22,14 @@ source:
   sha256: d70f21a557523404884dd2a192505227e1e6a50ed74315d73c416489b43e9414
 
 build:
-  number: 0
+  number: 1
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - {{ stdlib('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     # 2021/12/30 hmaarrfk
@@ -41,6 +41,7 @@ requirements:
   host:
     - cffi >=1.0
     - libvips
+    - glib
     - pip
     - pkgconfig         # [not win]
     - pytest
