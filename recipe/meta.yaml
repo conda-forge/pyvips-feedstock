@@ -39,16 +39,16 @@ requirements:
     # - pkgconfig                              # [build_platform != target_platform]
     # - libvips                                # [build_platform != target_platform]
   host:
+    - python
+    - pip
+    - setuptools >=61
     - cffi >=1.0
+    - pkgconfig >=1.5   # [not win]
     - libvips
     - glib
-    - pip
-    - pkgconfig >=1.5   # [not win]
-    - python
-    - setuptools >=61
   run:
-    - cffi >=1.0
     - python
+    - cffi >=1.0
 
 test:
   requires:
