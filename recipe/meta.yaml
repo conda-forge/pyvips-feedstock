@@ -43,7 +43,7 @@ requirements:
     - libvips
     - glib
     - pip
-    - pkgconfig         # [not win]
+    - pkgconfig >=1.5   # [not win]
     - python
   run:
     - cffi >=1.0
