@@ -45,6 +45,7 @@ requirements:
     - pip
     - pkgconfig >=1.5   # [not win]
     - python
+    - setuptools >=61
   run:
     - cffi >=1.0
     - python
