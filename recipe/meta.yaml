@@ -22,7 +22,7 @@ source:
   sha256: 252819173f4d3737c516c5b81aa3c82a92a21f666633705ecf239a0b33e95899
 
 build:
-  number: 1
+  number: 2
   script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
   skip: true  # [win]
 
@@ -39,20 +39,16 @@ requirements:
     # - pkgconfig                              # [build_platform != target_platform]
     # - libvips                                # [build_platform != target_platform]
   host:
+    - python
+    - pip
+    - setuptools >=61
     - cffi >=1.0
+    - pkgconfig >=1.5   # [not win]
     - libvips
     - glib
-    - pip
-    - pkgconfig         # [not win]
-    - pytest
-    - pytest-runner
-    - python
   run:
-    - cffi >=1.0
     - python
-    # 2021/12/30 Not sure why pkgconfig is a runtime dependency
-    # https://github.com/libvips/pyvips/issues/295
-    - pkgconfig         # [not win]
+    - cffi >=1.0
 
 test:
   requires:
