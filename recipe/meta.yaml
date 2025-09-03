@@ -44,8 +44,6 @@ requirements:
     - glib
     - pip
     - pkgconfig         # [not win]
-    - pytest
-    - pytest-runner
     - python
   run:
     - cffi >=1.0
