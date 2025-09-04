@@ -28,6 +28,10 @@ build:
     - pkg-config --exists --print-errors vips
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
   skip: true  # [win]
+  ignore_run_exports:
+    # We need to pull in metapackages for these below to get devel files, but
+    # don't depend on these libraries directly:
+    - libexpat
 
 requirements:
   build:
@@ -47,6 +51,7 @@ requirements:
     - pkgconfig >=1.5                     # [not win]
     - libvips
     - glib
+    # Needed for devel files (e.g. pkg-config):
     - expat
     - xorg-xorgproto                      # [linux]
   run:
