@@ -22,30 +22,38 @@ source:
   sha256: 252819173f4d3737c516c5b81aa3c82a92a21f666633705ecf239a0b33e95899
 
 build:
-  number: 2
-  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
+  number: 3
+  script:
+    # Ensure we can find the vips package
+    - pkg-config --exists --print-errors vips
+    - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
   skip: true  # [win]
+  ignore_run_exports:
+    # We need to pull in metapackages for these below to get devel files, but
+    # don't depend on these libraries directly:
+    - libexpat
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    # 2021/12/30 hmaarrfk
-    # I'm really not sure how to ensure that things get cross compiled correctly
-    # Therefore, we rely on ABI mode for cross compiled architectures
-    # - cffi                                   # [build_platform != target_platform]
-    # - pkgconfig                              # [build_platform != target_platform]
-    # - libvips                                # [build_platform != target_platform]
+    - pkg-config                          # [not win]
+    - python                              # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - cffi >=1.0                          # [build_platform != target_platform]
+    - pkgconfig >=1.5                     # [build_platform != target_platform]
+    - libvips                             # [build_platform != target_platform]
   host:
     - python
     - pip
     - setuptools >=61
     - cffi >=1.0
-    - pkgconfig >=1.5   # [not win]
+    - pkgconfig >=1.5                     # [not win]
     - libvips
     - glib
+    # Needed for devel files (e.g. pkg-config):
+    - expat
+    - xorg-xorgproto                      # [linux]
   run:
     - python
     - cffi >=1.0
@@ -55,8 +63,10 @@ test:
     - pip
   imports:
     - pyvips
+    - _libvips
   commands:
     - pip check
+    - python -c "import pyvips; assert pyvips.API_mode"
 
 about:
   home: https://github.com/libvips/pyvips
