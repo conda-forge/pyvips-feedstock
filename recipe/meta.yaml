@@ -12,6 +12,7 @@
 
 {% set name = "pyvips" %}
 {% set version = "3.0.0" %}
+{% set python_min = "3.7" %}
 
 package:
   name: {{ name|lower }}
@@ -22,7 +23,7 @@ source:
   sha256: 252819173f4d3737c516c5b81aa3c82a92a21f666633705ecf239a0b33e95899
 
 build:
-  number: 3
+  number: 4
   script:
     # Ensure we can find the vips package
     - pkg-config --exists --print-errors vips
@@ -38,13 +39,13 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - pkg-config                          # [not win]
-    - python                              # [build_platform != target_platform]
+    - python {{ python_min }}             # [build_platform != target_platform]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - cffi >=1.0                          # [build_platform != target_platform]
     - pkgconfig >=1.5                     # [build_platform != target_platform]
     - libvips                             # [build_platform != target_platform]
   host:
-    - python
+    - python {{ python_min }}
     - pip
     - setuptools >=61
     - cffi >=1.0
@@ -55,7 +56,7 @@ requirements:
     - expat
     - xorg-xorgproto                      # [linux]
   run:
-    - python
+    - python >={{ python_min }}
     - cffi >=1.0
 
 test:
